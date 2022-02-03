@@ -16,7 +16,7 @@ public class UserServiceImpl implements UserDetailsService {
     public UserServiceImpl(PasswordEncoder pw) {
         this.pw = pw;
     }
-    
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // 1.查询数据库查询用户名是否存在，如果不存在就抛出UsernameNotFoundException

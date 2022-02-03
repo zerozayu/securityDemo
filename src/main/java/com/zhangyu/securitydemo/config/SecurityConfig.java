@@ -1,5 +1,6 @@
 package com.zhangyu.securitydemo.config;
 
+import com.zhangyu.securitydemo.handler.MyAuthenticationSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -19,10 +20,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login.html")
                 // 当发现/login时认为是登录，必须和表单提交的地址一样。去执行UserServiceImpl
                 .loginProcessingUrl("/login")
+
                 // 登录成功后跳转页面，POST请求
-                .successForwardUrl("/toMain")
+                // 使用successForwardUrl()时表示成功后转发请求到地址。内部是通过 successHandler() 方法进行控制成功后交给哪个类进行处理，
+                // ForwardAuthenticationSuccessHandler内部就是最简单的请求转发。由于是请求转发，当遇到需要 跳转到站外或在前后端分离的
+                // 项目中就无法使用了。
+                // .successForwardUrl("/toMain")
+                // 跟.successForwardUrl("/toMain")不能共存
+                .successHandler(new MyAuthenticationSuccessHandler("https://www.baidu.com"))
+
                 // 登录失败后的跳转页面，POST请求
                 .failureForwardUrl("/toError")
+                .usernameParameter("myUsername")
+                .passwordParameter("myPassword")
         ;
 
         http.authorizeRequests()
