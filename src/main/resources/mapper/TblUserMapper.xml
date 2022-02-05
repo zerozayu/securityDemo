@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhangyu.securitydemo.mapper.TblUserMapper">
+
+    <resultMap id="BaseResultMap" type="com.zhangyu.securitydemo.domain.TblUser">
+            <id property="id" column="ID" jdbcType="INTEGER"/>
+            <result property="username" column="USERNAME" jdbcType="VARCHAR"/>
+            <result property="password" column="PASSWORD" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ID,USERNAME,PASSWORD
+    </sql>
+</mapper>

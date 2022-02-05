@@ -1,1 +1,20 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/security
+    username: root
+    password: 123456
 
+mybatis-plus:
+  # 在classpath前添加星号可以使项目热加载成功
+  # 自定义xml sql文件需要配置这个
+  mapper-locations: classpath*:/mapper/*Mapper.xml
+  # 实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.zhangyu.securitydemo
+  configuration:
+    # 自动驼峰命名转换
+    map-underscore-to-camel-case: true
+    # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

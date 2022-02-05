@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
-    private String url;
+    private final String url;
 
     public MyAuthenticationSuccessHandler(String url) {
         this.url = url;
