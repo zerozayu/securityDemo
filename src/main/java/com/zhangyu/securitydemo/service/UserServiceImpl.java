@@ -24,6 +24,7 @@ public class UserServiceImpl implements UserDetailsService {
         this.userMapper = userMapper;
     }
 
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // 根据用户名查询数据库中的用户名密码
@@ -33,7 +34,7 @@ public class UserServiceImpl implements UserDetailsService {
 
         if (null == tblUser){
             throw new UsernameNotFoundException("用户不存在");
-        }else {
+        } else {
             List<GrantedAuthority> grantedAuthorities = AuthorityUtils
                     .commaSeparatedStringToAuthorityList("admin,normal");
             return new User(tblUser.getUsername(), pw.encode(tblUser.getPassword()), grantedAuthorities);

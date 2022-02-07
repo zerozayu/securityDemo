@@ -1,5 +1,6 @@
 package com.zhangyu.securitydemo.config;
 
+import com.zhangyu.securitydemo.handler.MyAccessDeniedHandler;
 import com.zhangyu.securitydemo.handler.MyAuthenticationSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +11,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    private final MyAccessDeniedHandler myAccessDeniedHandler;
+
+    public SecurityConfig(MyAccessDeniedHandler myAccessDeniedHandler) {
+        this.myAccessDeniedHandler = myAccessDeniedHandler;
+    }
+
     // 自定义登录页面
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -33,6 +40,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("myUsername")
                 .passwordParameter("myPassword")
         ;
+
+        http.exceptionHandling()
+                        .accessDeniedHandler(myAccessDeniedHandler);
 
         http.authorizeRequests()
                 .antMatchers("/login.html", "/error.html").permitAll()
